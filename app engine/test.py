@@ -1,11 +1,13 @@
 import webapp2
 from bs4 import BeautifulSoup
+from google.appengine.api import urlfetch
 import urllib
 
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
         self.response.headers['Content-Type'] = 'text/plain'
+        urlfetch.set_default_fetch_deadline(60)
         url = 'http://evergreenmtb.org/recreation/'
         soup = BeautifulSoup(urllib.urlopen(url))
         titles = soup.find_all("font")
